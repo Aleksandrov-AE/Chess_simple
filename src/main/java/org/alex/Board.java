@@ -12,6 +12,10 @@ public class Board {
         piecePosition.put(coordinates, piece);
     }
 
+    public Piece removePiece(Coordinates coordinates) {
+        return piecePosition.remove(coordinates);
+    }
+
     public boolean isSquareEmpty(Coordinates coordinates) {
         return !piecePosition.containsKey(coordinates);
     }
@@ -56,5 +60,11 @@ public class Board {
 
     public static boolean isSquareDark(Coordinates coordinates) {
         return (((coordinates.horizontal.ordinal() - 1) + coordinates.vertical) % 2) == 0;
+    }
+
+    public void movePiece(Coordinates coordinates, Coordinates newCoordinates) {
+        Piece piece = removePiece(coordinates);
+        setPiece(newCoordinates, piece);
+
     }
 }

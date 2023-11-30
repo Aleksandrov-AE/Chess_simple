@@ -1,6 +1,8 @@
 package org.alex;
 
 
+import org.alex.pieces.CoordinatesShift;
+
 import java.util.Objects;
 
 public class Coordinates {
@@ -10,6 +12,19 @@ public class Coordinates {
     public Coordinates(Horizontal horizontal, Integer vertical) {
         this.horizontal = horizontal;
         this.vertical = vertical;
+    }
+
+    public  Coordinates getShiftCoordinates(CoordinatesShift shift) {
+        return  new Coordinates(Horizontal.values()[horizontal.ordinal() + shift.horizontalShift], vertical + shift.verticalShift);
+    }
+
+    public boolean canShift(CoordinatesShift coordinatesShift) {
+        int h = this.horizontal.ordinal() + coordinatesShift.horizontalShift;
+        int v = this.vertical + coordinatesShift.verticalShift;
+        if (h < 0 || h > 7) {
+            return false;
+        }
+        return v >= 1 && v <= 8;
     }
 
     @Override

@@ -22,9 +22,15 @@ public class BoardConsoleRender {
                 }
             }
             line.append(ANSI_RESET);
+            line.append(i);
             System.out.println(line);
 
         }
+
+        for (Horizontal horizontal: Horizontal.values()) {
+            System.out.print(" " + horizontal.name() + "  ");
+        }
+        System.out.println();
     }
 
     private String colorizeSprite(String sprite, Color pieceColor, boolean isSquareDark) {
