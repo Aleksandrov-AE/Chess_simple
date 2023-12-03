@@ -2,6 +2,11 @@ package org.alex;
 
 import org.alex.pieces.Piece;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Collections.emptySet;
+
 public class BoardConsoleRender {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_WHITE_PIECE_COLOR = "\u001B[97m";
@@ -11,14 +16,23 @@ public class BoardConsoleRender {
 
     public static final String ANSI_BLACK_SQUARE_BACKGROUND = "\u001B[0;100m";
 
-    public void render(Board board) {
+    public static final String ANSI_HIGHLIGHTED_SQUARE_BACKGROUND = "\u001B[42m";
+
+    public void render(Board board, Piece piece) {
+        Set<Coordinates> avilableMovePiece = emptySet();
+        if (piece != null) {
+            avilableMovePiece = piece.getAvailableSquare(board);
+        }
+
         for (int i = 8; i >= 1; i--) {
             StringBuilder line = new StringBuilder();
             for (Horizontal horizontal: Horizontal.values()) {
-                if (board.isSquareEmpty(new Coordinates(horizontal, i))) {
-                    line.append(getSpriteForEmptySquare(new Coordinates(horizontal, i)));
+                Coordinates coordinates = new Coordinates(horizontal, i);
+                boolean highlighted = avilableMovePiece.contains(coordinates);
+                if (board.isSquareEmpty(coordinates)) {
+                    line.append(getSpriteForEmptySquare(coordinates, highlighted));
                 } else {
-                    line.append(getPieceSprite(board.getPiese(new Coordinates(horizontal, i))));
+                    line.append(getPieceSprite(board.getPiese(coordinates), highlighted));
                 }
             }
             line.append(ANSI_RESET);
@@ -33,13 +47,21 @@ public class BoardConsoleRender {
         System.out.println();
     }
 
-    private String colorizeSprite(String sprite, Color pieceColor, boolean isSquareDark) {
+    public void render(Board board) {
+        render(board, null);
+    }
+
+    private String colorizeSprite(String sprite, Color pieceColor, boolean isSquareDark, boolean highlighted) {
         String result = sprite;
 
         if (pieceColor == Color.WHITE) {
             result = ANSI_WHITE_PIECE_COLOR + result;
         } else {
             result = ANSI_BLACK_PIECE_COLOR + result;
+        }
+
+        if (highlighted) {
+            result = ANSI_HIGHLIGHTED_SQUARE_BACKGROUND +  result;
         }
 
         if (isSquareDark) {
@@ -50,8 +72,8 @@ public class BoardConsoleRender {
         return result;
     }
 
-    private String getSpriteForEmptySquare(Coordinates coordinates) {
-        return colorizeSprite("    ", Color.WHITE, Board.isSquareDark(coordinates));
+    private String getSpriteForEmptySquare(Coordinates coordinates, boolean highlighted) {
+        return colorizeSprite("    ", Color.WHITE, Board.isSquareDark(coordinates), highlighted);
     }
 
     private String selectUnicodePiece(Piece piece) {
@@ -78,7 +100,7 @@ public class BoardConsoleRender {
         }
     }
 
-    private String getPieceSprite(Piece piece) {
-        return colorizeSprite(" " + selectUnicodePiece(piece) + " ", piece.getColor(), Board.isSquareDark(piece.getCoordinates()));
+    private String getPieceSprite(Piece piece, boolean highlighted) {
+        return colorizeSprite(" " + selectUnicodePiece(piece) + " ", piece.getColor(), Board.isSquareDark(piece.getCoordinates()), highlighted);
     }
 }

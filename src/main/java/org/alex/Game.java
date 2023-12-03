@@ -21,6 +21,7 @@ public class Game {
             render.render(board);
             Coordinates coordinates = new InputCoordinates().inputForColors(board, isWhiteMove ? Color.WHITE : Color.BLACK);
             Piece piece = board.getPiese(coordinates);
+            render.render(board, piece);
             Set<Coordinates> availbleMove = piece.getAvailableSquare(board);
             Coordinates newCoordinates = new InputCoordinates().inputAvailableSquare(availbleMove);
             board.movePiece(coordinates, newCoordinates);

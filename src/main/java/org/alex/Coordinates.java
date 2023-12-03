@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Coordinates {
     public final Horizontal horizontal;
-    public final Integer vertical;
+    public final int vertical;
 
     public Coordinates(Horizontal horizontal, Integer vertical) {
         this.horizontal = horizontal;
@@ -42,5 +42,13 @@ public class Coordinates {
     @Override
     public int hashCode() {
         return Objects.hash(horizontal, vertical);
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinates{"
+                + "horizontal=" + horizontal
+                + ", vertical=" + vertical
+                + '}';
     }
 }

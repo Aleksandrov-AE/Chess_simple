@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/.name
+/checkstyle.xml
+/.idea/checkstyle-idea.xml
+/.idea/checkstyleidea-libs/readme.txt

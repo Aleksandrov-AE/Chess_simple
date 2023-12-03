@@ -38,7 +38,7 @@ public class InputCoordinates {
 
     public Coordinates inputForColors(Board board, Color color) {
         while (true) {
-            System.out.println("Enter coordinate piece to move" + color.name());
+            System.out.println("Enter coordinate piece to move " + color.name());
             Coordinates coordinates = input();
             if (board.isSquareEmpty(coordinates)) {
                 System.out.println("Empty square");
@@ -57,12 +57,6 @@ public class InputCoordinates {
             return coordinates;
         }
 
-    }
-
-    public static void main(String[] args) {
-        InputCoordinates inputCoordinates = new InputCoordinates();
-        Coordinates coordinates = inputCoordinates.input();
-        System.out.println(coordinates.toString());
     }
 
     public Coordinates inputAvailableSquare(Set<Coordinates> availbleMove) {

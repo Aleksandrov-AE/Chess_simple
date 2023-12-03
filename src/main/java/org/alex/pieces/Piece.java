@@ -41,8 +41,8 @@ public abstract class Piece {
         return result;
     }
 
-    private boolean squareAvailableForMove(Coordinates newCoordinates, Board board) {
-        return board.isSquareEmpty(newCoordinates) || board.getPiese(coordinates).getColor() != color;
+    protected boolean squareAvailableForMove(Coordinates newCoordinates, Board board) {
+        return board.isSquareEmpty(newCoordinates) || board.getPiese(newCoordinates).getColor() != color;
     }
 
     protected abstract Set<CoordinatesShift> getShift();
