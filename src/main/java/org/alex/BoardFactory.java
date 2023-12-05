@@ -1,7 +1,5 @@
 package org.alex;
 
-
-
 public class BoardFactory {
 
     PieceFactory pieceFactory = new PieceFactory();
