@@ -1,5 +1,6 @@
 package org.alex.pieces;
 
+import org.alex.Board;
 import org.alex.Color;
 import org.alex.Coordinates;
 

@@ -2,26 +2,47 @@ package org.alex;
 
 import org.alex.pieces.*;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class Board {
-    private final HashMap<Coordinates, Piece> piecePosition = new HashMap<>();
+    private final HashMap<Coordinates, Piece> pieces = new HashMap<>();
 
     public void  setPiece(Coordinates coordinates, Piece piece) {
         piece.setCoordinates(coordinates);
-        piecePosition.put(coordinates, piece);
+        pieces.put(coordinates, piece);
     }
 
     public Piece removePiece(Coordinates coordinates) {
-        return piecePosition.remove(coordinates);
+        return pieces.remove(coordinates);
     }
 
     public boolean isSquareEmpty(Coordinates coordinates) {
-        return !piecePosition.containsKey(coordinates);
+        return !pieces.containsKey(coordinates);
     }
 
     public Piece getPiese(Coordinates coordinates) {
-        return piecePosition.get(coordinates);
+        return pieces.get(coordinates);
+    }
+
+    public List<Piece> getPiesesWithColor(Color color) {
+        List<Piece> result = new ArrayList<>();
+        for (Piece piece: pieces.values()) {
+            if (piece.getColor() == color) {
+                result.add(piece);
+            }
+        }
+        return  result;
+    }
+
+    public boolean isAttackSquareForColor(Coordinates coordinates, Color color) {
+        List<Piece> piesesWithColor = getPiesesWithColor(color.opposit());
+        for (Piece piece: piesesWithColor) {
+            Set<Coordinates> attackSquare = piece.getAttackSquare(this);
+            if (attackSquare.contains(coordinates)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public  void  setupDefaultBoard() {

@@ -24,6 +24,7 @@ public class Game {
             render.render(board, piece);
             Set<Coordinates> availbleMove = piece.getAvailableSquare(board);
             Coordinates newCoordinates = new InputCoordinates().inputAvailableSquare(availbleMove);
+            //checkKingAfterMove()
             board.movePiece(coordinates, newCoordinates);
             isWhiteMove = !isWhiteMove;
 

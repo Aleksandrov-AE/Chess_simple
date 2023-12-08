@@ -17,6 +17,7 @@ public class Bishop extends PieceLongRange implements  IBishop {
 
     @Override
     public Set<CoordinatesShift> getShift() {
+
         return bishopShift();
     }
 }

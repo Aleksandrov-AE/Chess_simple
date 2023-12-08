@@ -23,8 +23,15 @@ public abstract class PieceLongRange  extends  Piece {
     @Override
     protected boolean squareAvailableForMove(Coordinates newCoordinates, Board board) {
         boolean result = super.squareAvailableForMove(newCoordinates, board);
-        List<Coordinates> list = new ArrayList<>();
         if (result) {
+            result = squareAvailableForAttack(newCoordinates, board);
+        }
+        return  result;
+    }
+
+    @Override
+    protected boolean squareAvailableForAttack(Coordinates newCoordinates, Board board) {
+        List<Coordinates> list = new ArrayList<>();
             if (this.getCoordinates().horizontal.ordinal() == newCoordinates.horizontal.ordinal()) {
                 list = BoardUtil.getVerticalCoordinates(this.getCoordinates(), newCoordinates);
 
@@ -41,7 +48,7 @@ public abstract class PieceLongRange  extends  Piece {
                     return false;
                 }
             }
+        return true;
         }
-        return  result;
-    }
+
 }
