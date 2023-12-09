@@ -1,11 +1,16 @@
-package org.alex;
+package org.alex.board;
+
+import org.alex.Coordinates;
+import org.alex.Horizontal;
+import org.alex.Move;
+import org.alex.pieces.PieceFactory;
 
 public class BoardFactory {
 
     PieceFactory pieceFactory = new PieceFactory();
 
     public Board convertFen(String fen) {
-        Board board = new Board();
+        Board board = new Board(fen);
         String[] parts = fen.split(" ");
         String[] fenRows =    parts[0].split("/");
         for (int i = 0; i < fenRows.length; i++) {
@@ -24,5 +29,13 @@ public class BoardFactory {
             }
         }
         return board;
+    }
+
+    public Board copy(Board board) {
+        Board clone = convertFen(board.startPotition);
+        for (Move move: board.moveHistory) {
+            clone.makeMove(move);
+        }
+        return  clone;
     }
 }

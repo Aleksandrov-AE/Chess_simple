@@ -1,6 +1,7 @@
-package org.alex;
+package org.alex.pieces;
 
-import org.alex.pieces.*;
+import org.alex.Color;
+import org.alex.Coordinates;
 
 public class PieceFactory {
     public Piece fromFenChar(char fenChar, Coordinates coordinates) {

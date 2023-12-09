@@ -1,11 +1,9 @@
 package org.alex.pieces;
 
-import org.alex.Board;
-import org.alex.BoardUtil;
+import org.alex.board.Board;
+import org.alex.board.BoardUtil;
 import org.alex.Color;
 import org.alex.Coordinates;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +29,7 @@ public abstract class PieceLongRange  extends  Piece {
 
     @Override
     protected boolean squareAvailableForAttack(Coordinates newCoordinates, Board board) {
-        List<Coordinates> list = new ArrayList<>();
+        List<Coordinates> list;
             if (this.getCoordinates().horizontal.ordinal() == newCoordinates.horizontal.ordinal()) {
                 list = BoardUtil.getVerticalCoordinates(this.getCoordinates(), newCoordinates);
 

@@ -1,5 +1,11 @@
 package org.alex;
 
+import org.alex.board.Board;
+import org.alex.board.BoardConsoleRender;
+import org.alex.board.BoardFactory;
+import org.alex.pieces.King;
+import org.alex.pieces.Piece;
+
 import java.util.Scanner;
 import java.util.Set;
 
@@ -69,5 +75,30 @@ public class InputCoordinates {
             }
             return coordinates;
         }
+    }
+
+    public static Move inputMove(Board board, Color color, BoardConsoleRender render) {
+        while (true) {
+            Coordinates from = new InputCoordinates().inputForColors(board, color);
+            Piece piece = board.getPiese(from);
+            render.render(board, piece);
+            Set<Coordinates> availbleMove = piece.getAvailableSquare(board);
+            Coordinates target = new InputCoordinates().inputAvailableSquare(availbleMove);
+            Move move = new Move(from, target);
+            if (checkKingAfterMove(board, color, move)) {
+                System.out.println("Your King is under attack");
+                continue;
+            }
+            return move;
+        }
+    }
+
+    private static boolean checkKingAfterMove(Board board, Color color, Move move) {
+        Board clone = new BoardFactory().copy(board);
+        clone.makeMove(move);
+        //King exist
+        Piece king = clone.getPiesesWithColor(color)
+                .stream().filter(piece -> piece instanceof King).findFirst().get();
+        return clone.isSquareAttackedByColor(king.getCoordinates(), color.opposite());
     }
 }

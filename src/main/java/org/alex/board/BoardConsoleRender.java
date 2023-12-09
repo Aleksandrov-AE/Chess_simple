@@ -1,8 +1,10 @@
-package org.alex;
+package org.alex.board;
 
+import org.alex.Color;
+import org.alex.Coordinates;
+import org.alex.Horizontal;
 import org.alex.pieces.Piece;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;

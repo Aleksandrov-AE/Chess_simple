@@ -1,10 +1,12 @@
 package org.alex.pieces;
 
-import org.alex.Board;
+import org.alex.board.Board;
 import org.alex.Color;
 import org.alex.Coordinates;
+import org.alex.board.BoardUtil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Pawn extends Piece {
@@ -37,7 +39,14 @@ public class Pawn extends Piece {
     @Override
     protected boolean squareAvailableForMove(Coordinates newCoordinates, Board board) {
         if (newCoordinates.horizontal.ordinal() == this.getCoordinates().horizontal.ordinal()) {
-            return board.isSquareEmpty(newCoordinates);
+            if (Math.abs(newCoordinates.vertical - this.getCoordinates().vertical) == 2) {
+                List<Coordinates> between = BoardUtil.getVerticalCoordinates(newCoordinates, this.getCoordinates());
+                return board.isSquareEmpty(between.get(0))
+                        && board.isSquareEmpty(newCoordinates);
+            } else {
+                return board.isSquareEmpty(newCoordinates);
+            }
+
         } else {
             return squareAvailableForAttack(newCoordinates, board);
         }

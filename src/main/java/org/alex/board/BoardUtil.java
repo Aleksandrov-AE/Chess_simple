@@ -1,4 +1,7 @@
-package org.alex;
+package org.alex.board;
+
+import org.alex.Coordinates;
+import org.alex.Horizontal;
 
 import java.util.ArrayList;
 import java.util.List;
