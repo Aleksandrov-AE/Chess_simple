@@ -9,7 +9,7 @@ public class BoardFactory {
 
     PieceFactory pieceFactory = new PieceFactory();
 
-    public Board convertFen(String fen) {
+    public Board createBoard(String fen) {
         Board board = new Board(fen);
         String[] parts = fen.split(" ");
         String[] fenRows =    parts[0].split("/");
@@ -33,7 +33,7 @@ public class BoardFactory {
     }
 
     public Board copy(Board board) {
-        Board clone = convertFen(board.startPotition);
+        Board clone = createBoard(board.startPotition);
         for (Move move: board.moveHistory) {
             clone.makeMove(move);
         }

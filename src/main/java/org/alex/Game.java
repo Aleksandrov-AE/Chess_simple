@@ -13,6 +13,8 @@ public class Game {
 
     private final Board board;
 
+    private  Color colorMove = Color.WHITE;
+
     private final BoardConsoleRender render = new BoardConsoleRender();
 
     private final List<GameStateChecker> gameStateCheckers = List.of(
@@ -21,8 +23,6 @@ public class Game {
     public Game(Board board) {
         this.board = board;
     }
-
-    private  Color colorMove = Color.WHITE;
 
     public void gameLoop() {
         GameState state = determineGameState(board, colorMove);
@@ -39,7 +39,7 @@ public class Game {
         System.out.println("Game ended with state: " + state);
     }
 
-    private GameState determineGameState(Board board, Color color) {
+    public GameState determineGameState(Board board, Color color) {
         for (GameStateChecker gameStateChecker: gameStateCheckers) {
             GameState state = gameStateChecker.check(board, color);
             if (state != GameState.ONGOING) {
