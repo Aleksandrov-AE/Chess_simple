@@ -20,6 +20,7 @@ public class BoardFactory {
                 char ch = fenRows[i].charAt(j);
                 if (Character.isDigit(ch)) {
                     indexHorizont += Character.getNumericValue(ch);
+                    continue;
                 } else {
                     Horizontal horizontal = Horizontal.values()[indexHorizont];
                     Coordinates coordinates = new Coordinates(horizontal, vertical);
